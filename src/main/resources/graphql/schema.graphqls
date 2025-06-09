@@ -1,0 +1,40 @@
+directive @requiredIsLoggedIn on FIELD_DEFINITION
+
+type User {
+    id: ID!
+    username: String!
+    email: String!
+    password: String!
+}
+
+input CreateUserInput {
+    username: String!
+    email: String!
+    password: String!
+}
+
+input DeleteUserInput {
+    id: ID!
+}
+
+input UpdateUserInput {
+    id: ID!
+    username: String
+}
+
+input AuthenticationUserInput {
+    email: String!
+    password: String!
+}
+
+type Query {
+    users: [User!]!
+    currentUser: User @requiredIsLoggedIn
+}
+
+type Mutation {
+    createUser(input: CreateUserInput!): Boolean!
+    deleteUser(input: DeleteUserInput!): Boolean! @requiredIsLoggedIn
+    updateUser(input: UpdateUserInput!): User! @requiredIsLoggedIn
+    authentication(input: AuthenticationUserInput!): String!
+}
