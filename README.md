@@ -11,10 +11,6 @@ A modern, scalable API project built with Spring Boot and GraphQL, designed to d
 - 🗂️ Multi-environment configuration (local, prod)
 - 🛡️ Robust error handling and advanced logging
 
-## 📖 About This Project
-
-This repository provides a production-ready template for building GraphQL APIs using Spring Boot. It is structured to help developers quickly bootstrap new projects with a strong foundation for security, scalability, and maintainability. The project includes JWT-based authentication, a clear separation of concerns via layered architecture, and environment-specific configuration files. It is ideal for both learning and real-world applications.
-
 ## 📦 Getting Started
 
 ### Prerequisites
