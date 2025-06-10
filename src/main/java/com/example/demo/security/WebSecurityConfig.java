@@ -47,9 +47,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     if (isLocal) {
                         auth
-                                .requestMatchers("/graphql").permitAll()
-                                .requestMatchers("/graphiql", "/vendor/graphiql/**").permitAll()
-                                .requestMatchers("/h2-console/**").permitAll()
+                                .requestMatchers("/**").permitAll()
                                 .anyRequest().denyAll();
                     } else {
                         auth

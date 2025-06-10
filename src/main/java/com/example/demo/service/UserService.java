@@ -3,8 +3,7 @@ package com.example.demo.service;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.TokenManager;
-
-import graphql.GraphQLException;
+import com.example.demo.exception.GraphQLException;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,13 +22,17 @@ public class UserService {
     }
 
     @Transactional
-    public User createUser(String username, String email, String password) {
+    public boolean createUser(String username, String email, String password) {
+        if (userRepository.existsByUsername(username)) {
+            throw new GraphQLException("Username already exists");
+        }
+        if (userRepository.existsByEmail(email)) {
+            throw new GraphQLException("Email already exists");
+        }
         String encodedPassword = encryptPassword(password);
-        User user = new User();
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(encodedPassword);
-        return userRepository.save(user);
+        User user = new User(username, email, encodedPassword);
+        userRepository.save(user);
+        return true;
     }
 
     @Transactional
