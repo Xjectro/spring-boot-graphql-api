@@ -14,7 +14,6 @@ public class GraphQLExceptionHandler extends DataFetcherExceptionResolverAdapter
 
     @Override
     protected GraphQLError resolveToSingleError(Throwable ex, graphql.schema.DataFetchingEnvironment env) {
-        System.out.println(ex instanceof GraphQLException);
         if (ex instanceof GraphQLException) {
             logger.warn("GraphQLException: {}", ex.getMessage());
             return GraphqlErrorBuilder.newError(env)

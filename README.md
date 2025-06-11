@@ -1,99 +1,153 @@
-# Spring Boot GraphQL Advertisement Platform
+# 🚀 Spring Boot GraphQL API
 
-This project is a web platform where users can create and manage advertisements. The backend is built with Spring Boot, provides a GraphQL API, and uses JWT-based authentication for security. Users can register, log in, and manage their ads.
-
-## Features
-- User registration and login (JWT authentication)
-- Add, delete, update, and list advertisements
-- Flexible data querying with GraphQL API
-- Simple web interface (HTML + JS) for ad creation and user actions
-- Layered architecture (Controller, Service, Repository)
-- Error handling and customizable exception messages
-
-## Technologies Used
-- Java 17+
-- Spring Boot
-- Spring Security (JWT)
-- GraphQL (Spring for GraphQL)
-- H2/other database support
-- Basic frontend with HTML/JS
-
-## Setup
-1. Clone the repository:
-   ```bash
-   git clone <your-repo-link>
-   cd spring-boot-graphql-api
-   ```
-2. Install dependencies and build the project:
-   ```bash
-   ./gradlew build
-   ```
-3. Start the application:
-   ```bash
-   ./gradlew bootRun
-   ```
-
-## Usage
-- The app runs at `http://localhost:8080` by default.
-- GraphQL endpoint: `http://localhost:8080/graphql`
-- Web interfaces:
-  - Register: `/register`
-  - Login: `/login`
-  - Create advert: `/create`
-- After login, your JWT token is stored in localStorage and used automatically for ad operations.
-
-## GraphQL API
-### Main Types
-- **User**: id, username, email, roles
-- **Advert**: id, title, description, price, author
-
-### Queries
-```graphql
-query {
-  adverts {
-    id
-    title
-    description
-    price
-    author { username }
-  }
-}
-```
-
-### Mutations
-Create user:
-```graphql
-mutation {
-  createUser(input: {username: "ali", email: "ali@mail.com", password: "1234"})
-}
-```
-Login (returns token):
-```graphql
-mutation {
-  authentication(input: {email: "ali@mail.com", password: "1234"})
-}
-```
-Create advert:
-```graphql
-mutation {
-  createAdvert(input: {title: "Bicycle for Sale", description: "Clean, barely used.", price: 1500}) {
-    id
-    title
-  }
-}
-```
-
-## Authentication
-- Registration and login are handled via GraphQL mutations.
-- After login, the returned JWT token should be sent in the Authorization header.
-- Some actions (add/delete advert) require authentication.
-
-## Contributing
-Contributions are welcome! Please open an issue before submitting a pull request.
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Modern, scalable, and secure backend API template built with Spring Boot and GraphQL. This project demonstrates best practices for maintainable, extensible, and production-ready backend development.
 
 ---
 
-Template Used: https://github.com/Xjectro/spring-boot-graphql-api
+## 📖 Overview
+
+This repository provides a robust foundation for building GraphQL APIs using Spring Boot. It features JWT-based authentication, layered architecture, environment-specific configuration, and advanced error handling. Ideal for both learning and real-world applications.
+
+---
+
+## ✨ Features
+
+- ⚡ **Quick Setup:** Minimal configuration, ready to use.
+- 🔗 **GraphQL API:** Flexible data queries and mutations.
+- 🔒 **JWT Authentication:** Secure endpoints with token-based auth.
+- 🏗️ **Layered Architecture:** Controller, Service, Repository separation.
+- 🗂️ **Multi-Environment Config:** Easily switch between local and production.
+- 🛡️ **Robust Error Handling:** Centralized exception management.
+- 📊 **Advanced Logging:** Configurable logging for debugging and monitoring.
+- 🧪 **Comprehensive Testing:** Built-in test structure with Gradle.
+
+---
+
+## 🗂️ Project Structure
+
+```
+src/
+  main/
+    java/com/example/demo/
+      config/         # GraphQL and security configs
+      controller/     # REST/GraphQL controllers
+      dto/            # Data Transfer Objects
+      exception/      # Custom exceptions & handlers
+      model/          # Entity models
+      repository/     # Data access layer
+      security/       # JWT & security logic
+      service/        # Business logic
+    resources/
+      graphql/        # GraphQL schema
+      application-*.properties # Env configs
+      logback-spring.xml       # Logging config
+  test/
+    java/com/example/demo/     # Unit & integration tests
+```
+
+---
+
+## 🛠️ Technologies Used
+
+- Java 17+
+- Spring Boot
+- GraphQL Java
+- JWT (JSON Web Token)
+- Gradle
+- Logback
+
+---
+
+## 🚦 Getting Started
+
+### Prerequisites
+- Java 17 or higher
+- Gradle
+
+### Installation
+
+```bash
+git clone https://github.com/Xjectro/spring-boot-graphql-api.git
+cd spring-boot-graphql-api
+./gradlew bootRun
+```
+> **For Windows users:**
+> 
+> ```powershell
+> .\gradlew.bat bootRun
+> ```
+
+### Running Tests
+
+```bash
+./gradlew test
+```
+
+---
+
+## ⚙️ Configuration
+
+- All environment settings can be managed via `src/main/resources/application-*.properties` files.
+- Default file: `application.properties`
+- Example environment files: `application-local.properties`, `application-prod.properties`
+
+---
+
+## 🧩 GraphQL Usage
+
+- **Endpoint:** `/graphql`
+- **Schema:** `src/main/resources/graphql/schema.graphqls`
+
+### Example Query
+
+```graphql
+query {
+  users {
+    id
+    username
+    email
+  }
+}
+```
+
+### Example Mutation
+
+```graphql
+mutation {
+  createUser(input: {username: "test", password: "1234", email: "test@mail.com"}) {
+    id
+    username
+  }
+}
+```
+
+---
+
+## 🧪 Testing & Logging
+
+- All tests are located under `src/test/java/`.
+- Logs are written by default to `logs/app.log`. Logging configuration is managed via `logback-spring.xml`.
+
+---
+
+## 🤝 Contributing
+
+1. Fork this repo
+2. Create your feature branch (`git checkout -b feature/awesome-feature`)
+3. Commit your changes (`git commit -m 'Add awesome feature'`)
+4. Push to the branch (`git push origin feature/awesome-feature`)
+5. Open a Pull Request
+
+> Please use clean code and descriptive commit messages when contributing.
+
+---
+
+## 📄 License
+
+MIT
+
+---
+
+## 📬 Contact
+
+For questions, suggestions, or support, please open an issue or contact [Xjectro](https://github.com/Xjectro).

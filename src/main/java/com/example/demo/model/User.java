@@ -1,8 +1,6 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -20,11 +18,6 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String email;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    private List<String> roles = new ArrayList<>(List.of("USER"));
 
     public User() {
     }
@@ -65,23 +58,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-
-    public void addRole(String role) {
-        if (!roles.contains(role)) {
-            roles.add(role);
-        }
-    }
-
-    public void removeRole(String role) {
-        roles.remove(role);
     }
 }
