@@ -1,0 +1,51 @@
+p[id="message"] {
+  text-align: "start";
+  font-size: 1rem;
+  color: #ff0000;
+  width: 500px;
+  padding: 20px;
+  background-color: rgba(#ff0000, 0.1);
+  border: 1px solid #ff0000;
+  border-radius: 12px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 500px;
+  padding: 20px;
+  border: 1px solid #d1cece;
+  border-radius: 12px;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+form input {
+  padding: 10px;
+  border: 1px solid #d1cece;
+  border-radius: 12px;
+}
+
+form button[type="submit"] {
+  padding: 10px;
+  background-color: blue;
+  width: 100%;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+}

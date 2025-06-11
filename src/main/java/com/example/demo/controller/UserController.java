@@ -32,8 +32,8 @@ public class UserController {
 
     @MutationMapping
     public boolean createUser(@Argument CreateUserInput input) {
-        boolean result = userService.createUser(input.getUsername(), input.getEmail(), input.getPassword());
-        return result;
+        userService.createUser(input.getUsername(), input.getEmail(), input.getPassword());
+        return true;
     }
 
     @MutationMapping

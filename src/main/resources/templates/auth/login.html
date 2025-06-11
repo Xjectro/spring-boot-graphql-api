@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/form.css}"/>
+    <title>Login</title>
+  </head>
+  <body>
+    <p id="message"></p>
+    <form>
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="text" id="password" name="password" required />
+      </div>
+      <button type="submit">Login</button>
+    </form>
+
+    <script>
+      const form = document.querySelector("form");
+      const message = document.getElementById("message");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        const query = `
+            mutation {
+            authentication(input:{email:"${data.email}",password:"${data.password}"})
+            }
+            `;
+
+        const response = await fetch("/graphql", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query,
+          }),
+        }).then((res) => res.json());
+
+        if (response.data) {
+          localStorage.setItem(
+            "token",
+            `Bearer ${response.data.authentication}`
+          );
+          window.location.href = "/";
+        } else {
+          message.textContent = response.errors[0]?.message;
+        }
+      });
+    </script>
+  </body>
+</html>
