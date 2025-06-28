@@ -29,13 +29,8 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthFilter authFilter) throws Exception {
-        final boolean isLocal;
-
-        if (env.getActiveProfiles() != null) {
-            isLocal = java.util.Arrays.asList(env.getActiveProfiles()).contains("local");
-        } else {
-            isLocal = false;
-        }
+        final boolean isLocal = env.getActiveProfiles() != null &&
+                java.util.Arrays.asList(env.getActiveProfiles()).contains("local");
 
         http
                 .csrf(csrf -> csrf.disable())
@@ -47,14 +42,18 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     if (isLocal) {
                         auth
-                                .requestMatchers("/**").permitAll()
-                                .anyRequest().denyAll();
+                                .requestMatchers("/graphql").permitAll()
+                                .requestMatchers("/graphiql", "/vendor/graphiql/**").permitAll()
+                                .requestMatchers("/h2-console/**").permitAll()
+                                .requestMatchers("/actuator/**").permitAll()
+                                .anyRequest().permitAll();
                     } else {
                         auth
                                 .requestMatchers("/graphql").permitAll()
                                 .requestMatchers("/graphiql", "/vendor/graphiql/**").denyAll()
                                 .requestMatchers("/h2-console/**").denyAll()
-                                .anyRequest().denyAll();
+                                .requestMatchers("/actuator/**").denyAll()
+                                .anyRequest().authenticated();
                     }
                 });
 
